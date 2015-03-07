@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<!-- Fork of Mehuge's Population addon -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Population</title>
+    <script src="../vendor/jquery-2.1.1.js"></script>
+    <script src="../vendor/cu-rest/rest.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Cinzel">
+    <style type="text/css">
+        #a, #t, #v, #s, .m {
+            position: absolute;
+            width: 35px;
+            text-align: center;
+            font-family: Cinzel;
+            font-size: 10px;
+        }
+        #a, #t, #v, #s {
+            top: 1px;
+        }
+        #t {
+            color: green;
+            left: 5px;
+        }
+        #a {
+            color: red;
+            display: block;
+            position: absolute;
+            left: 45px;
+        }
+        #v {
+            color: steelblue;
+            left: 86px;
+        }
+        #s {
+            color: goldenrod;
+            left: 126px; 
+        }
+		.m {
+            color: white;
+            top: 15px; font-size: 5px; 
+            left: 45px; 
+        }
+        body {
+            background-image: url('bgsmall.png');
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="rlg-pop">
+        <span id="a"></span>
+        <span id="t"></span>
+        <span id="v"></span>
+        <span id="s"></span>
+        <span class="m"></span>
+    </div>
+    <script>
+        var a = document.getElementById("a"),
+            t = document.getElementById("t"),
+            v = document.getElementById("v");
+			s = document.getElementById("s");
+        var poll = function () {
+            Rest.getPlayers().then(function (data) {
+                a.innerText = data.arthurians;
+                t.innerText = data.tuathaDeDanann;
+                v.innerText = data.vikings;
+				s.innerText = data.arthurians+data.tuathaDeDanann+data.vikings;;
+                setTimeout(poll, 10000);
+            });
+        };
+        poll();
+    </script>
+</body>
+</html>
