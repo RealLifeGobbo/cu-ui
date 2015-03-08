@@ -5,6 +5,9 @@
     <title>Population</title>
     <script src="../vendor/jquery-2.1.1.js"></script>
     <script src="../vendor/cu-rest/rest.js"></script>
+    <script src="../vendor/lodash.js"></script>
+    <script src="../vendor/strophe.js"></script>
+	<script src="../cu/cu.js"></script>
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Cinzel">
     <style type="text/css">
         #a, #t, #v, #s, .m {
@@ -46,10 +49,20 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
+            cursor: pointer;
+            height: 100%; width: 100%;
+        }
+		.noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
     </style>
 </head>
-<body>
+<body class="noselect">
     <div id="rlg-pop">
         <span id="a"></span>
         <span id="t"></span>
@@ -58,20 +71,42 @@
         <span class="m"></span>
     </div>
     <script>
-        var a = document.getElementById("a"),
-            t = document.getElementById("t"),
-            v = document.getElementById("v");
-			s = document.getElementById("s");
-        var poll = function () {
-            Rest.getPlayers().then(function (data) {
-                a.innerText = data.arthurians;
-                t.innerText = data.tuathaDeDanann;
-                v.innerText = data.vikings;
-				s.innerText = data.arthurians+data.tuathaDeDanann+data.vikings;;
-                setTimeout(poll, 10000);
-            });
-        };
-        poll();
+	(function(){
+		var init = function() {
+			var a = document.getElementById("a"),
+				t = document.getElementById("t"),
+				v = document.getElementById("v");
+				s = document.getElementById("s");
+			var poll = function () {
+				Rest.getPlayers().then(function (data) {
+					a.innerText = data.arthurians;
+					t.innerText = data.tuathaDeDanann;
+					v.innerText = data.vikings;
+					var totalPlayers=data.arthurians+data.tuathaDeDanann+data.vikings;
+					s.innerText = totalPlayers;
+					var input="TDD: "+data.tuathaDeDanann+"  Arthurian: "+data.arthurians+"  Vikings: "+data.vikings+"  Total: "+totalPlayers;
+					setTimeout(poll, 10000);
+				});
+			}
+			poll();
+			
+			document.body.addEventListener("click", function (e) {
+				Rest.getPlayers().then(function (data) {			
+					var totalPlayers=data.arthurians+data.tuathaDeDanann+data.vikings;				
+					var input="TDD: "+data.tuathaDeDanann+"  Arthurian: "+data.arthurians+"  Vikings: "+data.vikings+"  Total: "+totalPlayers;
+					cu.SendChat(2 /* GROUPCHAT */, cu.GLOBAL_CHATROOM_NAME + '@' + cu.CHAT_SERVICE, input);
+				});
+			});
+		};
+		
+		if (typeof cuAPI !== "undefined") { 
+			if (cuAPI.initialized) {  // cuAPI already initialised
+				init();
+			} else {
+				cuAPI.OnInitialized(init);
+			}
+		}
+	})();
     </script>
 </body>
 </html>
