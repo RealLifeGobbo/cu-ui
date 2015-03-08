@@ -1,0 +1,50 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Gametime</title>
+    <link rel="stylesheet" type="text/css" href="../cu/cu.css">
+    <link rel="stylesheet" type="text/css" href="gametime.css">
+    <script src="../vendor/jquery-2.1.1.js"></script>
+    <script src="../vendor/lodash.js"></script>
+    <script src="../vendor/strophe.js"></script>
+	<script src="../cu/cu.js"></script>
+</head>
+<body class="disable-selection default-cursor">
+    <div id="rlg-gametime">00:00</div>
+    <script language="JavaScript">
+        (function () {
+			var init = function() {
+				var serverTimeOffset = Math.floor(cu.ServerTime() % 600);
+				var clock = document.getElementById("rlg-gametime");
+				var counter = 0;
+				
+				function displayTime() {
+					var timeTracker = counter + serverTimeOffset;					
+					var currentTime = timeTracker % 600;					
+					var hours = Math.floor((13 + (currentTime / 25) ) % 24);
+					var minutes = Math.floor((currentTime % 25) * 2.4);					
+					if (hours < 10) {
+						hours = "0" + hours;
+					}
+					if (minutes < 10) {
+						minutes = "0" + minutes;
+					}
+					clock.textContent = hours + ":" + minutes;
+					counter++;
+					setTimeout(displayTime, 1000);
+				}
+				displayTime();
+            }
+			if (typeof cuAPI !== "undefined") { 
+				if (cuAPI.initialized) {  // cuAPI already initialised
+					init();
+				} else {
+					cuAPI.OnInitialized(init);
+				}
+			}
+        })();
+    </script>
+</body>
+</html>
