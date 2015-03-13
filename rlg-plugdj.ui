@@ -1,0 +1,12 @@
+{
+	"_LICENSE": "This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.",
+	"name": "rlg-plugdj",
+	"mainFile": "rlg-plugdj/plugdj.html",
+	"rect": {
+		"left": 5,
+		"top": 5,
+		"right": 1435,
+		"bottom": 745
+	},
+	"handlesInput": true
+}
