@@ -17,7 +17,8 @@
         (function () {
 			var init = function() {				
 				var date = new Date;
-				var serverTimeOffset = cu.ServerTime();
+				var serverTime = cu.ServerTime();
+				var serverTimeOffset = (date.getTime() + serverTime);
 				var clock = document.getElementById("rlg-gametime");
 				var counter = 0;
 				
@@ -25,8 +26,8 @@
 					var timeTracker = counter + serverTimeOffset;
 					var currentTime = timeTracker % 600;
 					
-					var days = Math.floor(timeTracker / 600);
-					var hours = Math.floor((21+(currentTime / 25)) % 24);
+					var days = Math.floor((serverTime + counter) / 600);
+					var hours = Math.floor((18+(currentTime / 25)) % 24);
 					var minutes = Math.floor((currentTime % 25) * 2.4);
 					if (hours < 10) {
 						hours = "0" + hours;
