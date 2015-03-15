@@ -1,6 +1,5 @@
 bin/
 obj/
-*.js
 *.js.map
 *.suo
 *.user
