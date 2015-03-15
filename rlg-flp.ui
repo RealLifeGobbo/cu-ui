@@ -7,5 +7,6 @@
 		"top": 20,
 		"right": 1420,
 		"bottom": 100
-	}
+	},
+	"handlesInput": true
 }
