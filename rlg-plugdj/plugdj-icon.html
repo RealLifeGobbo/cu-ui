@@ -1,0 +1,39 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Plug.dj Icon</title>
+	<link rel="stylesheet" type="text/css" href="../cu/cu.css">
+	<style type="text/css">
+	html, body {
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+	}
+	#plugDJ {
+		position: fixed;
+		height: 60px;
+		width: 60px;
+	}
+	#plugDJButton {
+		position: relative;
+		margin: 0 auto;
+		width: 60px;
+		height: 60px;
+		background: url("plugdj.png") no-repeat center center;
+		background-size: 67%;
+		padding: 0;
+		border: none;		
+	}
+	</style>
+</head>
+<body class="default-cursor">
+	<div id="plugDJ">
+		<button type="button" id="plugDJButton"></button>
+	</div>
+    <script src="../vendor/jquery-2.1.1.js"></script>
+    <script src="../vendor/lodash.js"></script>
+	<script src="../cu/cu.js"></script>
+	<script src="plugdjmenu.js"></script>
+</html>
